@@ -14,9 +14,9 @@
     if (this.player.hasAttribute("autoplay")) {
       this.player.removeAttribute("autoplay")
     }
-    this.player.style.width= "100%"
+    this.player.style.width= "100vw"
     this.player.style.height = "100vh"
-    
+    this.player.style.minWidth = "100%"
     this.player.onloadeddata = this.onPlayerReady.bind(this)
     this.player.onplaying =  this.onVideoPlay.bind(this)
     this.player.onpause = this.onVideoPause.bind(this)
@@ -69,8 +69,7 @@
     pause() {
       this.player.pause()
     },
-    stop() {
-      this.seekTo(0)
+    stop() { 
       this.player.stop()
     },
     getDuration() {

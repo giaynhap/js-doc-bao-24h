@@ -28,18 +28,13 @@
     this.player.onplaying =  this.onVideoPlay.bind(this)
     this.player.onpause = this.onVideoPause.bind(this)
     this.player.onended = this.onVideoEnded.bind(this)
-   
-    
-  var elem = this.player
-  if (elem.requestFullscreen) {
-  elem.requestFullscreen();
-  } else if (elem.mozRequestFullScreen) {
-  elem.mozRequestFullScreen();
-  } else if (elem.webkitRequestFullscreen) {
-  elem.webkitRequestFullscreen();
-  } else if (elem.msRequestFullscreen) { 
-  elem.msRequestFullscreen();
-  }
+    this.state = -1
+
+    var meta = document.createElement('meta');
+    meta.httpEquiv = "X-UA-Compatible";
+    meta.name="viewport"
+    meta.content = "width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0";
+    document.getElementsByTagName('head')[0].appendChild(meta);
   }
   
   HookPlayer.prototype = {
@@ -53,6 +48,10 @@
       if (during < 1 ) {
         return
       }
+      if ( this.state != -1){
+        return
+      }
+
       this.postJson({type: this.commandType.INFO , during: during})
     },
     createTimer(){
@@ -67,13 +66,16 @@
     },
     onVideoEnded() {
       this.removeTimer()
+      this.state = 0
       this.postJson({type: this.commandType.STATE, value: 0})
     },
     onVideoPause(){
       this.removeTimer()
+      this.state = 2
       this.postJson({type: this.commandType.STATE, value: 2})
     },
     onVideoPlay(){
+      this.state = 1
       this.postJson({type: this.commandType.STATE, value: 1})
       this.createTimer()
     },
@@ -84,9 +86,11 @@
       this.player.play()
     },
     pause() {
+      this.removeTimer()
       this.player.pause()
     },
     stop() { 
+      this.removeTimer()
       this.player.stop()
     },
     getDuration() {

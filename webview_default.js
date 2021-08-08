@@ -14,8 +14,15 @@
     if (this.player.hasAttribute("autoplay")) {
       this.player.removeAttribute("autoplay")
     }
+
+    if (this.player.hasAttribute("loop")) {
+      this.player.removeAttribute("loop")
+    }
+    
+
+    this.player.style.position="absolute"
     this.player.style.width= "100vw"
-    this.player.style.height = "100vh"
+  //  this.player.style.height = "100vh"
     this.player.style.minWidth = "100%"
     this.player.onloadeddata = this.onPlayerReady.bind(this)
     this.player.onplaying =  this.onVideoPlay.bind(this)

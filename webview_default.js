@@ -18,10 +18,11 @@
     if (this.player.hasAttribute("loop")) {
       this.player.removeAttribute("loop")
     }
-    
-
+     
     this.player.style.position="absolute"
     this.player.style.width= "100vw"
+    this.player.width = window.innerWidth
+    this.player.height = window.innerHeight
   //  this.player.style.height = "100vh"
    // this.player.style.minWidth = "100%"
     this.player.onloadeddata = this.onPlayerReady.bind(this)
@@ -30,11 +31,7 @@
     this.player.onended = this.onVideoEnded.bind(this)
     this.state = -1
 
-    var meta = document.createElement('meta');
-    meta.httpEquiv = "X-UA-Compatible";
-    meta.name="viewport"
-    meta.content = "width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0";
-    document.getElementsByTagName('head')[0].appendChild(meta);
+  
   }
   
   HookPlayer.prototype = {

@@ -23,13 +23,23 @@
     this.player.style.position="absolute"
     this.player.style.width= "100vw"
   //  this.player.style.height = "100vh"
-    this.player.style.minWidth = "100%"
+   // this.player.style.minWidth = "100%"
     this.player.onloadeddata = this.onPlayerReady.bind(this)
     this.player.onplaying =  this.onVideoPlay.bind(this)
     this.player.onpause = this.onVideoPause.bind(this)
     this.player.onended = this.onVideoEnded.bind(this)
    
     
+  var elem = this.player
+  if (elem.requestFullscreen) {
+  elem.requestFullscreen();
+  } else if (elem.mozRequestFullScreen) {
+  elem.mozRequestFullScreen();
+  } else if (elem.webkitRequestFullscreen) {
+  elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { 
+  elem.msRequestFullscreen();
+  }
   }
   
   HookPlayer.prototype = {

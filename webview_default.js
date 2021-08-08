@@ -60,6 +60,7 @@
         return
       }
       clearInterval(this.timeInterval)
+      this.timeInterval = null
     },
     onVideoEnded() {
       this.removeTimer()
@@ -88,6 +89,7 @@
     },
     stop() { 
       this.removeTimer()
+      this.player.pause()
       this.player.stop()
     },
     getDuration() {

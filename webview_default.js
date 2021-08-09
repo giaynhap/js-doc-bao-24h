@@ -20,7 +20,8 @@
     }
      
     this.player.style.position="absolute"
-    this.player.style.width= "100vw"
+    this.player.style.width =  window.innerWidth
+    this.player.style.height =  window.innerHeight
     this.player.width = window.innerWidth
     this.player.height = window.innerHeight
   //  this.player.style.height = "100vh"

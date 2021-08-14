@@ -66,6 +66,7 @@ STATE: 2
       return
     }
     this.postJson({type: this.commandType.INFO , during: during})
+    this.postJson({type: this.commandType.TIME_CHANGE , value: 0})
   },
   onPlayerReady(event) {
     this.callbackInfo()

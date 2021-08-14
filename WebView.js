@@ -105,6 +105,7 @@ STATE: 2
   },
   onPlayerError(){
     console.log("onPlayerError")
+    this.postJson({type: this.commandType.TIME_CHANGE , value: 0})
   },
   play(){
     this.player.playVideo()

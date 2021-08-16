@@ -71,10 +71,10 @@ VIDEO_ERROR: 3
     } else {
       this.postJson({type: this.commandType.INFO , during: during, live: false}) 
     }
-    
+
     setTimeout(function(){
       this.postJson({type: this.commandType.TIME_CHANGE , value: 0})
-    },200)
+    }.bind(this),200)
   },
   onPlayerReady(event) {
  

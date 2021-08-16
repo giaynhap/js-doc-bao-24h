@@ -67,12 +67,14 @@ VIDEO_ERROR: 3
     console.log(during)
     
     if (during < 1 ) {
-      this.postJson({type: this.commandType.INFO , during: 0, live: true})
-      this.postJson({type: this.commandType.TIME_CHANGE , value: 0})
+      this.postJson({type: this.commandType.INFO , during: 0, live: true}) 
     } else {
-      this.postJson({type: this.commandType.INFO , during: during, live: false})
-      this.postJson({type: this.commandType.TIME_CHANGE , value: 0})
+      this.postJson({type: this.commandType.INFO , during: during, live: false}) 
     }
+    
+    setTimeout(function(){
+      this.postJson({type: this.commandType.TIME_CHANGE , value: 0})
+    },200)
   },
   onPlayerReady(event) {
  

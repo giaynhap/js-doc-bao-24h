@@ -45,7 +45,8 @@ HookPlayer.prototype = {
 commandType: {
 TIME_CHANGE: 0,
 INFO: 1,
-STATE: 2
+STATE: 2,
+VIDEO_ERROR: 3
 },
   createTimer(){
     this.removeTimer()
@@ -61,14 +62,20 @@ STATE: 2
     this.postJson({type: this.commandType.TIME_CHANGE , value:this.getCurrentTime()})
   },
   callbackInfo() {
+ 
     let during = this.getDuration()
+    console.log(during)
+    
     if (during < 1 ) {
-      return
+      this.postJson({type: this.commandType.INFO , during: 0, live: true})
+      this.postJson({type: this.commandType.TIME_CHANGE , value: 0})
+    } else {
+      this.postJson({type: this.commandType.INFO , during: during, live: false})
+      this.postJson({type: this.commandType.TIME_CHANGE , value: 0})
     }
-    this.postJson({type: this.commandType.INFO , during: during})
-    this.postJson({type: this.commandType.TIME_CHANGE , value: 0})
   },
   onPlayerReady(event) {
+ 
     this.callbackInfo()
   },
   onPlayerStateChange(event) {
@@ -107,6 +114,7 @@ STATE: 2
     console.log("onPlayerError")
     this.postJson({type: this.commandType.INFO , during: 1, error:true})
     this.postJson({type: this.commandType.TIME_CHANGE , value: 0})
+    this.postJson({type: this.commandType.VIDEO_ERROR , message:"Video Error"})
   },
   play(){
     this.player.playVideo()
@@ -132,6 +140,7 @@ STATE: 2
     return curentTime;
   },
   postJson(json) {
+    console.log(json)
     window.webkit && window.webkit.messageHandlers.playerListenr.postMessage(JSON.stringify(json));
   }
 }

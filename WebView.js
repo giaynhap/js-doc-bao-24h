@@ -72,9 +72,10 @@ VIDEO_ERROR: 3
       this.postJson({type: this.commandType.INFO , during: during, live: false}) 
     }
 
+    
     setTimeout(function(){
-      this.postJson({type: this.commandType.TIME_CHANGE , value: 0})
-    }.bind(this),200)
+      this.postJson({type: this.commandType.TIME_CHANGE , value: 0.01})
+    }.bind(this),500)
   },
   onPlayerReady(event) {
  

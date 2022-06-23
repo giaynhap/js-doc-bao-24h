@@ -67,9 +67,9 @@ VIDEO_ERROR: 3
     console.log(during)
     
     if (during < 1 ) {
-      this.postJson({type: this.commandType.INFO , during: 0, live: true}) 
+      this.postJson({type: this.commandType.INFO , during: 0, live: true})
     } else {
-      this.postJson({type: this.commandType.INFO , during: during, live: false}) 
+      this.postJson({type: this.commandType.INFO , during: during, live: false})
     }
 
     
@@ -90,6 +90,10 @@ VIDEO_ERROR: 3
     else {
       this.removeTimer()
     }
+      if (this.timeoutFirstPlay != null) {
+          clearTimeout(this.timeoutFirstPlay)
+          this.timeoutFirstPlay = null
+      }
     this.postJson({type: this.commandType.STATE, value: status})
     
     try{
@@ -120,7 +124,13 @@ VIDEO_ERROR: 3
     this.postJson({type: this.commandType.VIDEO_ERROR , message:"Video Error"})
   },
   play(){
-    this.player.playVideo()
+     // this.postJson({type: this.commandType.VIDEO_ERROR , message:"Video Error" +  JSON.stringify(this.player.playVideo())})
+      this.player.playVideo()
+      this.timeoutFirstPlay = setTimeout(function() {
+          if (this.player != 1) {
+              this.player.playVideo()
+          }
+      }.bind(this),2000)
   },
   stop(){
     this.seekTo(0)

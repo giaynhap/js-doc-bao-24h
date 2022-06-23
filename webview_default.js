@@ -88,7 +88,7 @@
       this.removeTimer()
       this.player.pause()
     },
-    stop() { 
+    stop() {
       this.removeTimer()
       this.player.pause()
       this.player.stop()
